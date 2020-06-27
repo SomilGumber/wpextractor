@@ -6,7 +6,7 @@ import sys
 url_link = sys.argv[1]
 url_link = url_link + "/wp-json/wp/v2/posts/?per_page=100"
 
-print(url_link)
+print("Url: " + sys.argv[1])
 from urllib.request import Request, urlopen
 
 req = Request(url_link, headers={'User-Agent': 'Mozilla/5.0'})
@@ -55,12 +55,15 @@ for n in json_data:
     }
 
     C_data.append(j_data)
-
+    print("Title: " + r["Title"])
+    print("Status: Downloaded")
     
 json_object = json.dumps(C_data, indent = 4) 
 
 # Writing to sample.json 
 with open("data.json", "w") as outfile: 
     outfile.write(json_object) 
-print("Done")
+
+print("Extracted Successfully")
+
     
