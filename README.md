@@ -11,4 +11,4 @@ WPExtractor is a python-based tool specifically made for Aritificial Intelligenc
 **Usage:** `python extract.py https://csrockers.in`
 
 ## Credits
-<a href="https://www.facebook.com/manalshaikh.info" target="_blank">"Manal Shake</a> & Somil Burger :D 
+<a href="https://www.facebook.com/manalshaikh.info" target="_blank">Manal Shake</a> & Somil Burger :D 
