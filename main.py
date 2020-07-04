@@ -12,6 +12,7 @@ from urllib.request import Request, urlopen
 req = Request(url_link, headers={'User-Agent': 'Mozilla/5.0'})
 webpage = urlopen(req).read()  
 
+## Fetching hostname of the URL
 from urllib.parse import urlparse
 parsed_uri = urlparse(url_link)
 result = '{uri.netloc}'.format(uri=parsed_uri)
@@ -22,19 +23,6 @@ file_ = open(filename, 'wb')
 file_.write(webpage)
 file_.close()
 
-def save_to_file (fn, row, fieldnames):
-    
-        if (os.path.isfile(fn)):
-            m="a"
-        else:
-            m="w"
-         
-        with open(fn, m, encoding="utf8", newline='' ) as csvfile: 
-          
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            if (m=="w"):
-                writer.writeheader()
-            writer.writerow(row)
 
 with open(filename) as json_file:
     json_data = json.load(json_file)
