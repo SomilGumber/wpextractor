@@ -12,8 +12,12 @@ from urllib.request import Request, urlopen
 req = Request(url_link, headers={'User-Agent': 'Mozilla/5.0'})
 webpage = urlopen(req).read()  
 
+from urllib.parse import urlparse
+parsed_uri = urlparse(url_link)
+result = '{uri.netloc}'.format(uri=parsed_uri)
+
 # Write data to file
-filename = "raw_data.txt"
+filename = "data/" + result + "-raw_data.txt"
 file_ = open(filename, 'wb')
 file_.write(webpage)
 file_.close()
@@ -61,7 +65,7 @@ for n in json_data:
 json_object = json.dumps(C_data, indent = 4) 
 
 # Writing to sample.json 
-with open("data.json", "w") as outfile: 
+with open("data/" + result + "-data.json", "w") as outfile: 
     outfile.write(json_object) 
 
 print("Extracted Successfully")
