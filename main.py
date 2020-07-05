@@ -5,15 +5,21 @@ import sys
 import requests
 import urllib
 from urllib.request import Request, urlopen, HTTPError
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('-u', '--url', required=True,help='Passing one url')
+parser.add_argument('-p', '--pages', action='store_true', help='To download pages/post')
+args = parser.parse_args()
+
+url = args.url
+
+if args.pages == True:
+    url_link = url + "/wp-json/wp/v2/pages/?per_page=100"
+else:
+    url_link = url + "/wp-json/wp/v2/posts/?per_page=100"
 
 try:
-    url_link = sys.argv[1]
-    url_link = url_link + "/wp-json/wp/v2/posts/?per_page=100"
-
-
-    print("Url: " + sys.argv[1])
-
     req = Request(url_link, headers={'User-Agent': 'Mozilla/5.0'})
 
     webpage = urlopen(req).read()
@@ -64,8 +70,9 @@ try:
     with open("data/" + result + "-data.json", "w") as outfile: 
         outfile.write(json_object)
     print("Extracted Successfully")
+    
 except urllib.error.HTTPError as e:
     ResponseData = e.read().decode("utf8", "ignore")
     print(e)
 except IndexError:
-    print("No input detected!") 
+    print("No input detected!")     
