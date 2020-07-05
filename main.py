@@ -5,32 +5,34 @@ import sys
 import requests
 import urllib
 from urllib.request import Request, urlopen, HTTPError
+from urllib.parse import urlparse
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-u', '--url', required=True,help='Passing one url')
+parser.add_argument('-f', '--file', help='To mention file')
+parser.add_argument('-u', '--url', help='Passing one url')
 parser.add_argument('-p', '--pages', action='store_true', help='To download pages/post')
 args = parser.parse_args()
 
-url = args.url
 
-if args.pages == True:
-    url_link = url + "/wp-json/wp/v2/pages/?per_page=100"
-else:
-    url_link = url + "/wp-json/wp/v2/posts/?per_page=100"
 
-try:
+def get_urls(filename):
+    urls = []
+
+    file = open(filename, "r")
+
+    for i in file:
+        i = i.replace("\n", "")
+        urls.append(i)
+    return urls
+
+def get_data_url(url_link):
     req = Request(url_link, headers={'User-Agent': 'Mozilla/5.0'})
-
     webpage = urlopen(req).read()
-
-
-
     ## Fetching hostname of the URL
-    from urllib.parse import urlparse
     parsed_uri = urlparse(url_link)
     result = '{uri.netloc}'.format(uri=parsed_uri)
-
+    print(result)
     # Write data to file
     filename = "data/" + result + "-raw_data.txt"
     file_ = open(filename, 'wb')
@@ -71,8 +73,34 @@ try:
         outfile.write(json_object)
     print("Extracted Successfully")
     
-except urllib.error.HTTPError as e:
-    ResponseData = e.read().decode("utf8", "ignore")
-    print(e)
+   
+try:
+    option = sys.argv[1]
+    if option == "-f":
+        urls = get_urls(args.file)
+        urls = list(urls)
+        for i in urls:
+            if args.pages == True:
+                i = i + "/wp-json/wp/v2/pages/?per_page=100"
+            else:
+                i = i + "/wp-json/wp/v2/posts/?per_page=100"
+            try:
+                get_data_url(i)
+            except urllib.error.HTTPError as e:
+                ResponseData = e.read().decode("utf8", "ignore")
+                print(e)
+
+    else:
+        try:
+            url = args.url
+            if args.pages == True:
+                url = url + "/wp-json/wp/v2/pages/?per_page=100"
+            else:
+                url = url + "/wp-json/wp/v2/posts/?per_page=100"
+            get_data_url(url)
+        except urllib.error.HTTPError as e:
+            ResponseData = e.read().decode("utf8", "ignore")
+            print(e)
+
 except IndexError:
-    print("No input detected!")     
+    print("No arguments passed! use -h to check all commands")     
