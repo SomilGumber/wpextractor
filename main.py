@@ -34,7 +34,7 @@ def get_data_url(url_link):
     result = '{uri.netloc}'.format(uri=parsed_uri)
     print(result)
     # Write data to file
-    filename = "data/" + result + "-raw_data.txt"
+    filename = "data/" + result + "-raw.txt"
     file_ = open(filename, 'wb')
     file_.write(webpage)
     file_.close()
