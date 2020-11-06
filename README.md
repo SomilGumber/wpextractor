@@ -8,7 +8,9 @@ WPExtractor is a python-based tool specifically made for Aritificial Intelligenc
 - Responsive developers. Just make an issue, we'll fix it for you :)
 
 ## Usage
-**Usage:** `python extract.py https://csrockers.in`
+**Usage:** <br/>
+`python extract.py -u https://csrockers.in`
+
 
 ## Credits
 <a href="https://www.facebook.com/manalshaikh.info" target="_blank">Manal Shaikh</a> & Somil Gumber.
