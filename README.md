@@ -9,8 +9,9 @@ WPExtractor is a python-based tool specifically made for Aritificial Intelligenc
 
 ## Usage
 **Usage:** <br/>
-`python extract.py -u https://csrockers.in`
-
+`python main.py -u https://csrockers.in` <br />
+By default, it will fetch posts from the website. To fetch pages, use the following. <br />
+`python main.py -u https://fulltimehosting.net --pages`
 
 ## Credits
-<a href="https://www.facebook.com/manalshaikh.info" target="_blank">Manal Shaikh</a> & Somil Gumber.
+<a href="https://www.facebook.com/shaikhmanal0" target="_blank">Manal Shaikh</a> & Somil Gumber.
