@@ -15,7 +15,6 @@ parser.add_argument('-p', '--pages', action='store_true', help='To download page
 args = parser.parse_args()
 
 
-
 def get_urls(filename):
     urls = []
 
@@ -100,7 +99,9 @@ try:
             get_data_url(url)
         except urllib.error.HTTPError as e:
             ResponseData = e.read().decode("utf8", "ignore")
-            print(e)
+            fcode = e.code
+            if fcode == 404:
+                print("Ops! The URL you supplied is not a WordPress URL. Please check for any typo and try again.")
 
 except IndexError:
     print("No arguments passed! use -h to check all commands")     
