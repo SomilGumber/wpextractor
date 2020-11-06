@@ -97,11 +97,21 @@ try:
             else:
                 url = url + "/wp-json/wp/v2/posts/?per_page=100"
             get_data_url(url)
-        except urllib.error.HTTPError as e:
+        except urllib.error.HTTPError as e:  # Error handling begins
             ResponseData = e.read().decode("utf8", "ignore")
             fcode = e.code
             if fcode == 404:
                 print("Ops! The URL you supplied is not a WordPress URL. Please check for any typo and try again.")
+            if fcode == 403:
+                print("The URL you are trying to locate is forbidden.")
+            if fcode == 401:
+                print("The URL you are trying to access has marked you unauthorized.")
+            if fcode == 408:
+                print("The URL you are trying to access has timed out.")
+            if fcode == 500:
+                print("The URL you are trying to access has returned Internal Server Access.")
+            if fcode == 502:
+                print("The URL you are trying to access has returned Bad Gateway error.")
 
 except IndexError:
     print("No arguments passed! use -h to check all commands")     
